@@ -13,11 +13,11 @@ class MYSQLI_bind_param{
 	}
 }
 
-/*--- Classe responsável por Instruções Sql ---*/
+/*--- Classe responsÃ¡vel por InstruÃ§Ãµes Sql ---*/
 class MYSQLI_instruction{
-/*--- Váriaveis de escopo ---*/
+/*--- VÃ¡riaveis de escopo ---*/
 	protected $stmt, $mysqli, $resp;
-	/*--- Função responsável pela conexao com o banco de dados ---*/
+	/*--- FunÃ§Ã£o responsÃ¡vel pela conexao com o banco de dados ---*/
 	function con_mysqli(){
 		$host_sql = "127.0.0.1";
 		$user_sql = "root";
@@ -29,11 +29,11 @@ class MYSQLI_instruction{
 			//echo "Error MySQL: ".$mysqli->error;
 		return true;
 	}
-	/*--- Função responsável por encerrar a conexão ---*/
+	/*--- FunÃ§Ã£o responsÃ¡vel por encerrar a conexÃ£o ---*/
 	function end_con_sql(){
 		$this->mysqli->close();
 	}
-	/*--- Função responsável por selecionar campos no banco de dados ---*/
+	/*--- FunÃ§Ã£o responsÃ¡vel por selecionar campos no banco de dados ---*/
 	function select_mysqli($query,$types='',$params=[]){
 		$cont = count($params);
 		$this->resp = array();
@@ -70,7 +70,7 @@ class MYSQLI_instruction{
 		else return $this->resp;
 	}
 	
-	/*--- Função para inserir no banco de dados ---*/
+	/*--- FunÃ§Ã£o para inserir no banco de dados ---*/
 	function generic_sql_mysqli($query,$types='',$params=[]){
 		$cont = count($params);
 		$this->resp = false;
@@ -97,7 +97,7 @@ class MYSQLI_instruction{
 /* Teste da classe MYSQLI_instruction */
 $mysqli = new MYSQLI_instruction();
 $mysqli->con_mysqli();
-$resp = $mysqli->select_mysqli('SELECT * FROM tabela WHERE id_tabela < ?', array('10'));
+$resp = $mysqli->select_mysqli('SELECT * FROM tabela WHERE id_tabela < ?', 's', array('10'));
 var_dump($resp);
 $mysqli->end_con_sql();
 
