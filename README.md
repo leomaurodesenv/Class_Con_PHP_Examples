@@ -1,6 +1,8 @@
 # Class_Con_PHP_Examples
-In this Repository you find examples of connections to SGBD, for PHP.
+In this Repository you find class|examples of connections to DBMS (or SGBD, in Portuguese), for PHP.
 
+    PDO class -> PDO_instruction()
+	MySQLi class -> 
     ./class <- Show class to use in PHP.
 
 * Its free to uses.. dont worry. Heheh

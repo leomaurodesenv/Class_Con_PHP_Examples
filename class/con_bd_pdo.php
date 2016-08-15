@@ -1,16 +1,41 @@
 <?php
 
-/*--- Classe responsável por Instruções Sql ---*/
+/** 
+ * This class can execute DBMS scripts with PDO Statement.
+ * 
+ * It can prepare statement and execute functions of databeses, like: select, update, delete, create and drop.
+ * This class are generic, and can be used in all 'PDO Drivers' <http://php.net/manual/pt_BR/pdo.drivers.php>.
+ * 
+ * @author Leonardo Mauro <leo.mauro.desenv@gmail.com>
+ * @link https://github.com/leomaurodesenv/Class_Con_PHP_Examples GitHub
+ * @link https://opensource.org/licenses/MIT MIT License (MIT)
+ * @version 1.1.2 16-08-15
+ * @copyright 2016 Leonardo Mauro
+ * @license MIT
+ * @package CON
+ * @access public
+ */ 
+
 class PDO_instruction{
-/*--- Váriaveis de escopo ---*/
-	protected $stmt, $pdo, $resp;
-	/*--- Função responsável pela conexao com o banco de dados ---*/
-	function con_pdo(){
-		$database = 'mysql';
-		$host_sql = "127.0.0.1";
-		$user_sql = "root";
-		$pass_sql = "";
-		$bd_sql = "banco_de_dados";
+	
+	/** @var object $stmt Represents a prepared statement. */
+	protected $stmt;
+	/** @var object $pdo PDO connection. */
+	private $pdo;
+	/** @var array $resp This is associated result of statement. */
+	protected $resp;
+	
+	/**
+	 * PDO Connection.
+	 * @access public
+	 * @param string|null $database Set DBMS
+	 * @return bool
+	 */
+	function con_pdo($database='mysql'){
+		$host_sql = "mysql6.000webhost.com";
+		$user_sql = "a9670956_scrum";
+		$pass_sql = "mysql64321";
+		$bd_sql = "a9670956_scrum";
 		
 		try{
 			$this->pdo = new PDO($database.':host='.$host_sql.';dbname='.$bd_sql, $user_sql, $pass_sql);
@@ -21,17 +46,29 @@ class PDO_instruction{
 		}
 		return true;
 	}
-	/*--- Função responsável por encerrar a conexão ---*/
+	
+	/**
+	 * Close PDO Connection.
+	 * @access public
+	 * @return void
+	 */
 	function end_con_pdo(){
 		$this->stmt = null;
 		$this->pdo = null;
 	}
-	/*--- Função responsável por selecionar campos no banco de dados ---*/
+	
+	/**
+	 * SELECT functions (DBMS), this function prepare and execute statements, return array of SELECT results.
+	 * @access public
+	 * @param string $query Query of DBMS. Setin bind params use '?', example <http://php.net/manual/pt_BR/pdostatement.bindparam.php>
+	 * @param array|null $params Params bind query | null if don't have any param.
+	 * @return false|array
+	 */
 	function select_pdo($query='', $params=[]){
 		$this->resp = array();
 		
 		$this->stmt = $this->pdo->prepare($query);
-		/* mark placeholders: $sth->bindParam(1, $calories, PDO::PARAM_INT); */
+		/* http://php.net/manual/pt_BR/pdostatement.bindparam.php */
 		$this->stmt->execute($params);
 		
 		$error = $this->stmt->errorInfo();
@@ -46,12 +83,18 @@ class PDO_instruction{
 		else return $this->resp;
 	}
 	
-	/*--- Função para inserir, editar e excluir no banco de dados ---*/
+	/**
+	 * Another functions (DBMS), like: DELETE, UPDATE, CREATE (TABLE) and DROP (TABLE).
+	 * @access public
+	 * @param string $query Query of DBMS. Setin bind params use '?', example <http://php.net/manual/pt_BR/pdostatement.bindparam.php>
+	 * @param array|null $params Params bind query | null if don't have any param.
+	 * @return bool
+	 */
 	function generic_sql_pdo($query='',$params=[]){
 		$this->resp = false;
 		
 		$this->stmt = $this->pdo->prepare($query);
-		/* mark placeholders: $sth->bindParam(1, $calories, PDO::PARAM_INT); */
+		/* http://php.net/manual/pt_BR/pdostatement.bindparam.php */
 		$this->resp = $this->stmt->execute($params);
 		
 		$error = $this->stmt->errorInfo();
@@ -62,7 +105,8 @@ class PDO_instruction{
 }
 
 
-/* Teste da classe PDO_instruction */
+/* Example (PDO_instruction) *
+
 $pdo = new PDO_instruction();
 $pdo->con_pdo();
 $resp = $pdo->select_pdo('SELECT * FROM tabela WHERE id_tabela < ?', array('10'));

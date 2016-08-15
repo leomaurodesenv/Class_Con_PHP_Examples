@@ -1,23 +1,80 @@
 <?php
 
-/*--- Classe responsavel por executar o bind_param ---*/
+/** 
+ * This class can bind params, used in prepare statement of MySQLi.
+ * 
+ * It can bind params.
+ * 
+ * @author Leonardo Mauro <leo.mauro.desenv@gmail.com>
+ * @link https://github.com/leomaurodesenv/Class_Con_PHP_Examples GitHub
+ * @link https://opensource.org/licenses/MIT MIT License (MIT)
+ * @version 1.0.1 16-08-15
+ * @copyright 2016 Leonardo Mauro
+ * @license MIT
+ * @package CON
+ * @access public
+ */ 
+
 class MYSQLI_bind_param{ 
-	private $values = array(), $types = '';
 	
+	/** @var array $values Represents values to be bind. */
+	private $values = array();
+	/** @var string $types Represents type of each value, see more about: <http://php.net/manual/pt_BR/mysqli-stmt.bind-param.php>. */
+	private $types = '';
+	
+	/**
+	 * Add values.
+	 * @access public
+	 * @param string $type Types of values: i (int); d (double); s (string); and b (blob).
+	 * @param array &$value Values to be bind
+	 * @return void
+	 */
 	public function add($type, &$value){
 		$this->values[] = &$value;
 		$this->types .= $type;
 	}
+	
+	/**
+	 * Get bind values.
+	 * @access public
+	 * @param void
+	 * @return array
+	 */
 	public function get(){
 		return array_merge(array($this->types), $this->values);
 	}
 }
 
-/*--- Classe responsável por Instruções Sql ---*/
+/** 
+ * This class can execute DBMS scripts with MySQLi Statement.
+ * 
+ * It can prepare statement and execute functions of databeses, like: select, update, delete, create and drop.
+ * This class are generic, and can be used for all MySQL querys Like <http://php.net/manual/pt_BR/mysqli.query.php>.
+ * 
+ * @author Leonardo Mauro <leo.mauro.desenv@gmail.com>
+ * @link https://github.com/leomaurodesenv/Class_Con_PHP_Examples GitHub
+ * @link https://opensource.org/licenses/MIT MIT License (MIT)
+ * @version 1.0.2 16-08-15
+ * @copyright 2016 Leonardo Mauro
+ * @license MIT
+ * @package CON
+ * @access public
+ */ 
 class MYSQLI_instruction{
-/*--- Váriaveis de escopo ---*/
-	protected $stmt, $mysqli, $resp;
-	/*--- Função responsável pela conexao com o banco de dados ---*/
+
+	/** @var object $stmt Represents a prepared statement. */
+	protected $stmt;
+	/** @var object $mysqli MySQLi connection. */
+	private $mysqli;
+	/** @var array $resp This is associated result of statement. */
+	protected $resp;
+	
+	/**
+	 * MySQLi Connection.
+	 * @access public
+	 * @param void
+	 * @return bool
+	 */
 	function con_mysqli(){
 		$host_sql = "127.0.0.1";
 		$user_sql = "root";
@@ -26,14 +83,28 @@ class MYSQLI_instruction{
 		$this->mysqli = new mysqli($host_sql, $user_sql, $pass_sql, $bd_sql);
 		
 		if($this->mysqli->connect_errno || !$this->mysqli->set_charset("utf8")) return false;
-			//echo "Error MySQL: ".$mysqli->error;
+			/* echo "Error MySQL: ".$mysqli->error; */
 		return true;
 	}
-	/*--- Função responsável por encerrar a conexão ---*/
+	
+	/**
+	 * Close MySQLi Connection.
+	 * @access public
+	 * @param void
+	 * @return void
+	 */
 	function end_con_sql(){
 		$this->mysqli->close();
 	}
-	/*--- Função responsável por selecionar campos no banco de dados ---*/
+	
+	/**
+	 * SELECT functions (DBMS), this function prepare and execute statements, return array of SELECT results.
+	 * @access public
+	 * @param string $query Query of DBMS. Example <http://php.net/manual/pt_BR/mysqli-stmt.bind-param.php>.
+	 * @param string $types Types of values: i (int); d (double); s (string); and b (blob).
+	 * @param array|null $params Params bind query | null if don't have any param.
+	 * @return false|array
+	 */
 	function select_mysqli($query,$types='',$params=[]){
 		$cont = count($params);
 		$this->resp = array();
@@ -70,7 +141,14 @@ class MYSQLI_instruction{
 		else return $this->resp;
 	}
 	
-	/*--- Função para inserir no banco de dados ---*/
+	/**
+	 * Another functions (DBMS), like: DELETE, UPDATE, CREATE (TABLE) and DROP (TABLE).
+	 * @access public
+	 * @param string $query Query of DBMS. Example <http://php.net/manual/pt_BR/mysqli-stmt.bind-param.php>.
+	 * @param string $types Types of values: i (int); d (double); s (string); and b (blob).
+	 * @param array|null $params Params bind query | null if don't have any param.
+	 * @return bool
+	 */
 	function generic_sql_mysqli($query,$types='',$params=[]){
 		$cont = count($params);
 		$this->resp = false;
@@ -94,10 +172,11 @@ class MYSQLI_instruction{
 }
 
 
-/* Teste da classe MYSQLI_instruction */
+/* Example (MYSQLI_instruction) *
+
 $mysqli = new MYSQLI_instruction();
 $mysqli->con_mysqli();
-$resp = $mysqli->select_mysqli('SELECT * FROM tabela WHERE id_tabela < ?', array('10'));
+$resp = $mysqli->select_mysqli('SELECT * FROM tabela WHERE id_tabela < ?', 'i', array('10'));
 var_dump($resp);
 $mysqli->end_con_sql();
 
