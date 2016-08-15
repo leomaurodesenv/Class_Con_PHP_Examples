@@ -32,10 +32,10 @@ class PDO_instruction{
 	 * @return bool
 	 */
 	function con_pdo($database='mysql'){
-		$host_sql = "mysql6.000webhost.com";
-		$user_sql = "a9670956_scrum";
-		$pass_sql = "mysql64321";
-		$bd_sql = "a9670956_scrum";
+		$host_sql = "127.0.0.1";
+		$user_sql = "root";
+		$pass_sql = "";
+		$bd_sql = "banco_de_dados";
 		
 		try{
 			$this->pdo = new PDO($database.':host='.$host_sql.';dbname='.$bd_sql, $user_sql, $pass_sql);
