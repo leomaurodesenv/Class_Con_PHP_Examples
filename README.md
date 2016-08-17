@@ -3,13 +3,13 @@
 This package have classes to connection and queries for Database Management System (DBMS [or SGBD, in Portuguese]).   
 Currently it can connect to a database using MySQLi or PDO extension and execute several types of queries from parameters that define tables, fields, values and conditions.   
    
-* Folder:
-   * /class/class.mysqli.instruction.php `MYSQLI_instruction()`
-   * /class/class.pdo.instruction.php `PDO_instruction()`
+#### Folder:    
+* /class/class.mysqli.instruction.php `MYSQLI_instruction()`
+* /class/class.pdo.instruction.php `PDO_instruction()`
    
 ## Example  	
 
-* MYSQLI_instruction()   
+#### MYSQLI_instruction()   
 ```php
 $mysqli = new MYSQLI_instruction();
 $mysqli->con_mysqli();
@@ -20,8 +20,7 @@ var_dump($resp);
 $mysqli->end_con_sql(); 
 ```
    
-   
-* PDO_instruction()   
+#### PDO_instruction()   
 ```php
 $pdo = new PDO_instruction();
 $pdo->con_pdo();
@@ -38,7 +37,7 @@ $pdo->end_con_pdo();
 * Git: [leomaurodesenv][git]
 * Site: [Portfolio][leomauro]
    
-[mit]: https://opensource.org/licenses/MIT
-[email]: leo.mauro.desenv@gmail.com
-[git]: https://github.com/leomaurodesenv/
-[leomauro]: http://leonardomauro.com
+[mit]: https://opensource.org/licenses/MIT    
+[email]: leo.mauro.desenv@gmail.com    
+[git]: https://github.com/leomaurodesenv/    
+[leomauro]: http://leonardomauro.com    
