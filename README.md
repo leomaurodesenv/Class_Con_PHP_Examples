@@ -32,12 +32,7 @@ $pdo->end_con_pdo();
 ```
    
 ## Also look ~  	
-* [License MIT][mit]
-* Create by Leonardo Mauro ([leo.mauro.desenv@gmail.com][email])
-* Git: [leomaurodesenv][git]
-* Site: [Portfolio][leomauro]
-   
-[mit]: https://opensource.org/licenses/MIT    
-[email]: leo.mauro.desenv@gmail.com    
-[git]: https://github.com/leomaurodesenv/    
-[leomauro]: http://leonardomauro.com    
+* [License MIT](https://opensource.org/licenses/MIT)
+* Create by Leonardo Mauro (leo.mauro.desenv@gmail.com)
+* Git: [leomaurodesenv](https://github.com/leomaurodesenv/)
+* Site: [Portfolio](http://leonardomauro.com/portfolio/)
