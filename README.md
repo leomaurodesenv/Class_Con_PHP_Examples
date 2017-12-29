@@ -9,7 +9,7 @@ Currently it can connect to a database using MySQLi or PDO extension and execute
    
 ## Example  	
 
-#### MYSQLI_instruction()   
+#### MysqliInstruction()   
 ```php
 /* Autoload Include */
 use \Connection\MysqliInstruction;
@@ -22,7 +22,7 @@ var_dump($resp);
 $mysqli->end();
 ```
    
-#### PDO_instruction()   
+#### PDOInstruction()   
 ```php
 /* Autoload Include */
 use \Connection\PDOInstruction;
