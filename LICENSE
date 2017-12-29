@@ -1,5 +1,6 @@
 The MIT License (MIT)
 
+Connection DBMS: This classes manager a mysql database by PDO or Mysqli
 Copyright (c) 2016 , Leonardo Mauro <leo.mauro.desenv@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
